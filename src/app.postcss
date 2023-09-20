@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+/* Write your global styles here, in PostCSS syntax */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: "NoSignal";
+    src: url("/fonts/NoSignal.otf");
+}
+
+@font-face {
+    font-family: "MonumentExtended";
+    src: url("/fonts/MonumentExtended.otf");
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+    height: -webkit-fill-available;
+
+    font-family: 'Montserrat', sans-serif;
+    background-color: black;
+
+    text-rendering: optimizeLegibility;
+}
+
+.lil-gui {
+    margin-top: 65px;
+}
+
+.full-height {
+    min-height: 100%;
+    height: -webkit-fill-available;
+    max-height: 100%;
+}
+
+.nosignal {
+    font-family: "NoSignal", sans-serif;
+}
+
+.monument-extended {
+    font-family: "MonumentExtended", sans-serif;
+}
+
+article .content h1 {
+    font-weight: bold;
+    font-size: 40px;
+}
+
+article .content h2 {
+    font-weight: bold;
+    font-size: 40px;
+    line-height: 40px;
+    overflow-wrap: break-word;
+}
+
+article .content p {
+    line-height: 35px;
+    font-size: 20px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
