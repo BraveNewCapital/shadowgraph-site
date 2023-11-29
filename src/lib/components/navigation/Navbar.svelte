@@ -18,10 +18,10 @@
 
 <nav bind:this={navbar} class="fixed top-0 left-0 right-0 mx-auto z-[12] backdrop-blur text-white border-b-[1px] border-gray-700" in:fade={{ delay: 200, duration: 300 }}>
     <div class="flex text-md px-2 space-x-6 w-full max-w-[1280px] mx-auto">
-        <a class="flex flex-col font-bold text-4xl my-auto" href="/">
-            <h2 class="tracking-widest p-2 nosignal">SG</h2>
+        <a class="flex flex-col font-bold text-lg my-auto" href="/">
+            <h2 class="tracking-widest p-2">Shadowgraph</h2>
         </a>
-        <div class="my-auto w-full">
+        <div class="flex justify-end my-auto w-full">
             <div class="hidden sm:block space-x-6 ml-8 h-[60px]">
                 <a class="underline-offset-8 decoration-2 hover:underline" href="/">
                     <button class="h-full border-t-2 border-transparent hover:border-[#B4B4B4] w-[80px] transition ease-in-out duration-400">Projects</button>

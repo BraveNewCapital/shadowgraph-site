@@ -1,7 +1,7 @@
 <script>
-	import LinearVaporwave from "$lib/components/background/LinearVaporwave.svelte";
 	import { fade } from "svelte/transition";
 	import { onMount } from "svelte";
+	import Circle from "../lib/components/background/Circle.svelte";
 
     let ready = false;
 
@@ -27,13 +27,14 @@
         z-index: 1;
         color: #B4B4B4;
         mix-blend-mode: lighten;
+        display: none;
     }
 
     .layers::after {
         top: 3px;
         left: 5px;
         z-index: -1;
-        color: #919191;
+        color: #000000;
         mix-blend-mode: lighten;
     }
 
@@ -52,14 +53,14 @@
 
 <section class="flex min-h-full w-full text-white m-auto bg-[#00000000]">
     <div class="h-full w-full m-auto flex min-h-[600px]">
-        <div class="absolute left-0 min-h-[600px] h-[95%] w-full overflow-hidden pointer-events-all">
-            <LinearVaporwave />
+        <div class="absolute left-0 min-h-[600px] h-full w-full overflow-hidden pointer-events-all">
+            <Circle />
         </div>
         <div class="flex flex-col full-height w-full text-center z-[2] mx-auto pointer-events-none">
             {#if ready}
                 <div class="flex flex-col my-auto" in:fade={{ delay: 200, duration: 800 }}>
-                    <div class="text-5xl xs:text-6xl sm:text-8xl md:text-8xl lg:text-9xl -rotate-6">
-                        <h1 class="glitch nosignal layers text-white/80 max-w-[420px] sm:max-w-[600px] md:max-w-[700px] mx-auto" data-text="Shadow Graph">Shadow Graph</h1>
+                    <div class="text-7xl">
+                        <h1 class="glitch layers text-white/80 max-w-[420px] sm:max-w-[600px] md:max-w-[700px] mx-auto" data-text=""></h1>
                     </div>
                 </div>
             {/if}
@@ -67,14 +68,14 @@
     </div>
 </section>
 
-<section class="space-y-12">
+<section class="space-y-12 mt-16">
     <div class="text-white text-lg w-full md:w-1/2">
-        <h2 class="text-2xl font-bold mb-2 monument-extended">Truly decentralised philosophy</h2>
+        <h2 class="text-2xl font-bold mb-2 monument-extended">Shadowgraph copy 1</h2>
         <p>Our philosophy of decentralisation leads us to take a bottom up approach to architecture reflects our commitment to building a more equitable and just future, where decentralized identity and trust systems provide the tools and resources needed for individuals and communities to take control of their digital lives. We believe that everyone has the right to privacy, security, and self-determination, and that decentralized systems are the key to unlocking that potential. Join us on our mission to build a self sovereign future for all.</p>
     </div>
 
     <div class="text-white text-lg md:text-right w-full md:w-1/2 md:ml-auto">
-        <h2 class="text-2xl font-bold mb-2 monument-extended">Brave New Movement</h2>
+        <h2 class="text-2xl font-bold mb-2 monument-extended">Shadowgraph copy 2</h2>
         <p>At BraveNewCapital, we're not just building technology, we're building a movement. Our belief that decentralized identity and trust systems are the key to a more free and prosperous future. Join us on our mission to empower individuals and cooperates alike with a self-sovereign approach to identity, trust & reputation.<br/>Contact us today to learn more about how you can get involved. Trust the decentralized future with BraveNewCapital.</p>
     </div>
 </section>
