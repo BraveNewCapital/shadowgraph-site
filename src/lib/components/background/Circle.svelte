@@ -2,6 +2,11 @@
     import * as THREE from "three";
     import { onMount } from "svelte";
 
+    import { EffectComposer } from "three/examples/jsm/postprocessing/EffectComposer.js";
+    import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
+    import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
+    import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader.js";
+
     let canvas;
 
     onMount(() => {
@@ -9,8 +14,18 @@
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 5;
 
-        const renderer = new THREE.WebGLRenderer({ canvas });
+        const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
+
+        const composer = new EffectComposer(renderer);
+        const renderPass = new RenderPass(scene, camera);
+        composer.addPass(renderPass);
+
+        const fxaaPass = new ShaderPass(FXAAShader);
+        const pixelRatio = renderer.getPixelRatio();
+        fxaaPass.material.uniforms['resolution'].value.x = 1 / (window.innerWidth * pixelRatio);
+        fxaaPass.material.uniforms['resolution'].value.y = 1 / (window.innerHeight * pixelRatio);
+        composer.addPass(fxaaPass);
 
         const geometry = new THREE.PlaneGeometry(2, 2);
         const uniforms = {
@@ -117,16 +132,25 @@
             requestAnimationFrame(animate);
             material.uniforms.iTime.value += 0.01;
             material.uniforms.iFrame.value += 1;
-            renderer.render(scene, camera);
+            composer.render(scene, camera);
         }
 
         window.addEventListener('resize', () => {
             const width = window.innerWidth;
             const height = window.innerHeight;
+
             renderer.setSize(width, height);
             camera.aspect = width / height;
             camera.updateProjectionMatrix();
+
             material.uniforms.iResolution.value.set(width, height, 1);
+
+            // Update FXAA pass resolution uniforms
+            const pixelRatio = renderer.getPixelRatio();
+            fxaaPass.material.uniforms['resolution'].value.x = 1 / (width * pixelRatio);
+            fxaaPass.material.uniforms['resolution'].value.y = 1 / (height * pixelRatio);
+
+            composer.setSize(width, height);
         });
 
         animate();
