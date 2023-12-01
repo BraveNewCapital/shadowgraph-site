@@ -89,11 +89,15 @@
                 float a = atan(uv.x/uv.y); //polar angle (limited)
                 float d2 = uv.x*uv.x+uv.y*uv.y; //polar distance squared
                 float p,s,amp,pc;
-                fft.xyzw = vec4(0); //sound
-                
-                // Sound (see shadertoy.com/view/Xds3Rr, assume? sound texture with 48Khz/4 in 512 texels)
-                fft /= vec4(12,36,144,320); //normalize
-                
+
+                // Simulated FFT Value Generation
+                float baseFreq = 2.0 * PI * iTime;
+                fft.x = abs(sin(baseFreq)); // Simulating bass frequency
+                fft.y = abs(sin(2.0 * baseFreq)); // Simulating speech frequency
+                fft.z = abs(sin(4.0 * baseFreq)); // Simulating presence frequency
+                fft.w = abs(sin(8.0 * baseFreq)); // Simulating brilliance frequency
+                fft /= vec4(12,36,144,320); // Normalize
+
                 // Geometry
                 for (float n=0.;n<8.;n++){
                     p = .01*animTime+n*PI/4.; //phase
