@@ -15,7 +15,8 @@
         camera.position.z = 5;
 
         const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        const container = canvas.parentElement;
+        renderer.setSize(container.clientWidth, container.clientHeight);
 
         const composer = new EffectComposer(renderer);
         const renderPass = new RenderPass(scene, camera);
@@ -166,8 +167,9 @@
         }
 
         window.addEventListener('resize', () => {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
+            const container = canvas.parentElement;
+            const width = container.clientWidth;
+            const height = container.clientHeight;
 
             renderer.setSize(width, height);
             camera.aspect = width / height;

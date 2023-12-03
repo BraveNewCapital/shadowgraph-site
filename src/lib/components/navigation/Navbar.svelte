@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="flex">
-            <button class="border-2 rounded-lg ml-auto px-3 h-[40px] hidden sm:block my-auto hover:bg-white hover:text-black">App</button>
+            <button class="border-2 rounded-lg ml-auto px-3 h-[40px] hidden sm:block my-auto hover:bg-white w-[150px] hover:text-black">Try the App</button>
             <div class="sm:hidden my-auto pr-2">
                 <Hamburger bind:open --color="white" --padding={"0px"} />
             </div>

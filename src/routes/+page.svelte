@@ -52,17 +52,20 @@
 </svelte:head>
 
 
-<section class="flex min-h-full w-full text-white m-auto bg-[#00000000]">
+<section class="flex h-full w-full text-white m-auto bg-[#00000000]">
     <div class="h-full w-full m-auto flex min-h-[600px]">
         <div class="absolute left-0 min-h-[600px] h-full w-full overflow-hidden pointer-events-all">
             <Circle />
         </div>
-        <div class="flex flex-col full-height w-full text-center z-[2] mx-auto pointer-events-none">
+        <div class="flex flex-col full-height w-full text-center z-[2] mx-auto">
             {#if ready}
                 <div class="flex flex-col my-auto" in:fade={{ delay: 200, duration: 800 }}>
-                    <div class="text-7xl">
-                        <h1 class="glitch layers text-white/80 max-w-[420px] sm:max-w-[600px] md:max-w-[700px] mx-auto" data-text=""></h1>
-                    </div>
+                    <form class="max-w-md max-h-fit w-full mx-auto">
+                        <div class="flex items-center border-b border-b-2 border-white py-2">
+                            <input class="appearance-none bg-transparent border-none w-full text-gray-300 mr-3 py-1 px-2 leading-tight focus:outline-none"  type="email" placeholder="Enter your email">
+                            <button class="border-2 rounded-lg ml-auto px-3 h-[40px] my-auto hover:bg-white hover:text-black focus:outline-none focus:shadow-outline" type="submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
             {/if}
         </div>
