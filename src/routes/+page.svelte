@@ -44,12 +44,13 @@
 </style>
 
 <svelte:head>
-    <meta name="description" content="BraveNew.Capital is a pioneering technology company focused on revolutionising the digital landscape by developing innovative, secure, and decentralised trust solutions. By harnessing cutting-edge research and advanced algorithms, our groundbreaking Open Reputation Kit (ORK) offers a universal trust scoring system that seamlessly integrates across platforms and applications. Our mission is to empower individuals and organisations in the rapidly evolving world of web3, NFTs, and DeFi, fostering a secure and transparent environment for online interactions and transactions.">
-    <meta property="og:title" content="Brave New Capital" />
-    <meta property="og:description" content="BraveNew.Capital is a pioneering technology company focused on revolutionising the digital landscape by developing innovative, secure, and decentralised trust solutions. By harnessing cutting-edge research and advanced algorithms, our groundbreaking Open Reputation Kit (ORK) offers a universal trust scoring system that seamlessly integrates across platforms and applications. Our mission is to empower individuals and organisations in the rapidly evolving world of web3, NFTs, and DeFi, fostering a secure and transparent environment for online interactions and transactions.">
-    <meta property="og:image" content="https://bravenew.capital/img/BNC.webp">
-    <meta property="og:url" content="https://bravenew.capital/">
+    <meta name="description" content="Shadowgraph redefines online identity management through a personal, cryptographic, and private environment. By unifying your digital persona scattered across various online channels, Shadowgraph offers advanced data analytics and self-sovereign identity management via a dPKI-WoT and blockchain-agnostic framework. Embrace a future where you control and monetize your data through zero-knowledge proof technology and social diffusion ML modeling, ensuring privacy and accuracy in a hyper-personalized digital space.">
+    <meta property="og:title" content="Shadowgraph - Your Digital Persona Unified" />
+    <meta property="og:description" content="Shadowgraph is revolutionizing online interaction by offering a unified, cryptographic, and private platform for digital identity management. Our advanced approach empowers users with self-sovereign identity, leveraging dPKI-WoT and blockchain-agnostic systems to ensure unparalleled privacy and control. Join us in embracing a future where data is not just protected but harnessed for personal empowerment and monetization through cutting-edge zero-knowledge proof and ML social diffusion modeling.">
+    <meta property="og:image" content="https://shadowgraph.ai/img/Shadowgraph_logo.webp">
+    <meta property="og:url" content="https://shadowgraph.ai/">
 </svelte:head>
+
 
 <section class="flex min-h-full w-full text-white m-auto bg-[#00000000]">
     <div class="h-full w-full m-auto flex min-h-[600px]">
@@ -67,7 +68,7 @@
         </div>
     </div>
 </section>
-
+<!-- 
 <section class="space-y-12 mt-16">
     <div class="text-white text-lg w-full md:w-1/2">
         <h2 class="text-2xl font-bold mb-2 monument-extended">Shadowgraph copy 1</h2>
@@ -78,4 +79,4 @@
         <h2 class="text-2xl font-bold mb-2 monument-extended">Shadowgraph copy 2</h2>
         <p>At BraveNewCapital, we're not just building technology, we're building a movement. Our belief that decentralized identity and trust systems are the key to a more free and prosperous future. Join us on our mission to empower individuals and cooperates alike with a self-sovereign approach to identity, trust & reputation.<br/>Contact us today to learn more about how you can get involved. Trust the decentralized future with BraveNewCapital.</p>
     </div>
-</section>
+</section> -->

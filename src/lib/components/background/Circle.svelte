@@ -11,7 +11,7 @@
 
     onMount(() => {
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.z = 5;
 
         const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
@@ -45,78 +45,104 @@
             },
             iMouse: { value: new THREE.Vector4() },
             iDate: { value: new THREE.Vector4() },
-            iSampleRate: { value: 44100.0 },
+            iSampleRate: { value: 54100.0 },
             iChannel0: { value: 0 }
         };
 
         const fragmentShaderCode = `
-            uniform vec3      iResolution;
-            uniform float     iTime;
-            uniform float     iTimeDelta;
-            uniform float     iFrameRate;
-            uniform int       iFrame;
-            uniform float     iChannelTime[4];
-            uniform vec3      iChannelResolution[4];
-            uniform vec4      iMouse;
-            uniform vec4      iDate;
-            uniform float     iSampleRate;
-            
-            #define PI 3.14159265359 
+        // Uniforms and Constants
+        uniform vec3 iResolution; // Resolution of the screen
+        uniform float iTime; // Current time
+        uniform float iTimeDelta; // Time since last frame
+        uniform float iFrameRate; // Frame rate
+        uniform int iFrame; // Current frame number
+        uniform float iChannelTime[4]; // Channel time for 4 channels
+        uniform vec3 iChannelResolution[4]; // Resolution for 4 channels
+        uniform vec4 iMouse; // Mouse coordinates and button states
+        uniform vec4 iDate; // Current date
+        uniform float iSampleRate; // Audio sample rate
 
-            float animTime;
-            vec4 fft;
+        #define PI 3.14159265359
 
-            float sinRad2(float a, float r2){ //angle, radius squared
-                return r2*(1.+.25*fft.x*sin(8.*a+animTime));
+        // Global Variables and Constants
+        const float AnimTimeMultiplier = 2.618;
+        const vec4 FFTNormalizationFactors = vec4(12, 36, 144, 320);
+        const float PhaseOffsetMultiplier = PI / 3.5;
+        const float RingCount = 12.0;
+        const float AngleModifier = PI / 8.0;
+        const float GammaCorrectionValue = 0.4445;
+        const vec3 EyeCenterIntensity = vec3(0.1, 0.9, 0.0015);
+        const float NegativeCorrectionFactor = -0.005;
+        const float RingIntensityFactor = 0.9;
+        const float RingWidthFactor = 0.8;
+        const float ColorAmplitudeMultiplier = 0.1;
+        const float ColorFrequencyOffset = PI / 3.0;
+        const float DistanceThreshold = 0.0025;
+        const float CenterEyeIntensityMultiplier = 0.002;
+        const float MouseFrequencyMultiplier = 40.0; // Added for more noticeable mouse effect
+
+        float animTime; // Animated time
+        vec4 fft; // Fourier transform components
+
+        // Function Definitions
+
+        float sinRad2(float angle, float radiusSquared) {
+            return radiusSquared * (1.0 + 0.25 * fft.x * sin(8.0 * angle + animTime));
+        }
+
+        float sinRing(float distanceSquared, float angle, float radiusSquared, float widthFactor) {
+            float r2Min = sinRad2(angle, radiusSquared);
+            float r2Max = sinRad2(angle, radiusSquared * widthFactor);
+            if ((distanceSquared >= r2Min - DistanceThreshold) && (distanceSquared <= r2Max + DistanceThreshold)) return 1.0;
+            return CenterEyeIntensityMultiplier / abs(distanceSquared - r2Min) + CenterEyeIntensityMultiplier / abs(distanceSquared - r2Max);
+        }
+
+        float sinRing2(float distanceSquared, float angle, float radiusSquared, float widthFactor) {
+            return sinRing(distanceSquared, angle, radiusSquared, widthFactor) + sinRing(distanceSquared, angle + AngleModifier, radiusSquared, widthFactor);
+        }
+
+        // Main Image Rendering Function
+        void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+            vec3 col = vec3(0);
+            vec2 uv = (2.0 * fragCoord - iResolution.xy) / max(iResolution.x, iResolution.y);
+            animTime = AnimTimeMultiplier * iTime;
+            float a = atan(uv.x, uv.y); // Polar angle (limited)
+            float d2 = uv.x * uv.x + uv.y * uv.y; // Polar distance squared
+            float p, s, amp, pc;
+
+            // Mouse position affects frequency
+            float mouseXFactor = iMouse.x / iResolution.x * MouseFrequencyMultiplier;
+            float mouseYFactor = iMouse.y / iResolution.y * MouseFrequencyMultiplier;
+
+            // Simulated FFT Value Generation (Simulating Music)
+            float timeFactor = iTime * 10.0;
+            fft.x = abs(sin((timeFactor + mouseXFactor) * 0.1 + sin((timeFactor + mouseYFactor) * 0.014))); // Bass frequency
+            fft.y = abs(sin((timeFactor + mouseXFactor) * 0.2 + sin((timeFactor + mouseYFactor) * 0.031))); // Mid frequency
+            fft.z = abs(sin((timeFactor + mouseXFactor) * 0.4 + sin((timeFactor + mouseYFactor) * 0.042))); // High frequency
+            fft.w = abs(sin((timeFactor + mouseXFactor) * 0.8 + sin((timeFactor + mouseYFactor) * 0.053))); // Additional harmonic
+            fft /= FFTNormalizationFactors; // Normalize
+
+            // Geometry
+            for (float n = 0.0; n < RingCount; n++) {
+                p = 0.01 * animTime + n * PhaseOffsetMultiplier; // Phase
+                s = smoothstep(NegativeCorrectionFactor, 0.0, -cos(p));
+                pc = a + p + animTime; // Phase color
+                amp = (RingIntensityFactor - RingWidthFactor * s) * sinRing2(d2, (-1.0 + 2.0 * mod(n, 2.0)) * a, 0.9 * (1.0 + 0.999 * sin(p)), 1.0 + 0.5 * s); // Rings
+                col += amp * (ColorAmplitudeMultiplier + 0.9 * fft.zyw) * vec3(sin(pc), sin(pc + ColorFrequencyOffset), sin(pc + 2.0 * ColorFrequencyOffset)); // Colors
             }
 
-            float sinRing(float d2, float a, float r2, float w){ //distance squared, angle, radius squared, width factor
-                float r2Min = sinRad2(a,r2);
-                float r2Max = sinRad2(a,r2*w);
-                if ((d2>=r2Min-.001)&&(d2<=r2Max+.001)) return 1.;
-                return .001/abs(d2-r2Min)+0.001/abs(d2-r2Max);
-            }
+            // Finalizations
+            col *= col; // Negative correction & harder falloff
+            col += vec3(CenterEyeIntensityMultiplier / abs(d2 - EyeCenterIntensity.z) * (EyeCenterIntensity.x + EyeCenterIntensity.y * fft.x)); // Center eye
+            col = pow(col, vec3(GammaCorrectionValue)); // Gamma correction
+            fragColor = vec4(col, 1.0);
+        }
 
-            float sinRing2(float d2, float a, float r2, float w){ //distance squared, angle, radius squared, width factor
-                return sinRing(d2,a,r2,w)+sinRing(d2,a+PI/8.,r2,w);
-            }
+        // Entry point
+        void main() {
+            mainImage(gl_FragColor, gl_FragCoord.xy);
+        }
 
-            void mainImage( out vec4 fragColor, in vec2 fragCoord ){
-                // Initializations
-                vec3 col = vec3(0);
-                vec2 uv = (2.*fragCoord-iResolution.xy) / max(iResolution.x, iResolution.y);
-                animTime = 2.133333*iTime;
-                float a = atan(uv.x/uv.y); //polar angle (limited)
-                float d2 = uv.x*uv.x+uv.y*uv.y; //polar distance squared
-                float p,s,amp,pc;
-
-                // Simulated FFT Value Generation
-                float baseFreq = 2.0 * PI * iTime;
-                fft.x = abs(sin(baseFreq)); // Simulating bass frequency
-                fft.y = abs(sin(2.0 * baseFreq)); // Simulating speech frequency
-                fft.z = abs(sin(4.0 * baseFreq)); // Simulating presence frequency
-                fft.w = abs(sin(8.0 * baseFreq)); // Simulating brilliance frequency
-                fft /= vec4(12,36,144,320); // Normalize
-
-                // Geometry
-                for (float n=0.;n<8.;n++){
-                    p = .01*animTime+n*PI/4.; //phase
-                    s = smoothstep(-.3,0.,-cos(p));
-                    pc = a+p+animTime; //phase color
-                    amp = (.9-.8*s)*sinRing2(d2,(-1.+2.*mod(n,2.))*a,.9*(1.+.999*sin(p)),1.+.5*s); //rings
-                    col += amp*(.1+.9*fft.zyw)*vec3(sin(pc),sin(pc+PI/3.),sin(pc+2.*PI/3.)); //colors
-                }
-                
-                // Finalizations
-                col *= col; // negative correction & harder falloff
-                col += vec3(.001/abs(d2-.0015)*(.1+.9*fft.x)); //center eye
-                col = pow(col, vec3(.4545)); //gamma correction
-                fragColor = vec4(col, 1.0);
-            }
-            
-            void main() {
-                mainImage(gl_FragColor, gl_FragCoord.xy);
-            }
         `;
 
         const material = new THREE.ShaderMaterial({
@@ -134,7 +160,7 @@
 
         function animate() {
             requestAnimationFrame(animate);
-            material.uniforms.iTime.value += 0.01;
+            material.uniforms.iTime.value += 0.005;
             material.uniforms.iFrame.value += 1;
             composer.render(scene, camera);
         }

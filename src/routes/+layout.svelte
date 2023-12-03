@@ -20,7 +20,7 @@
 
     <footer class="flex bottom-0">
         <div class="flex flex-col mt-16 mb-12 m-auto">
-            <p class="text-xs text-gray-500 m-auto">© {currentYear()} Brave New Capital, DAO.</p>
+            <p class="text-xs text-gray-500 m-auto">© {currentYear()} Shadowgraph a <a class="underline-offset-8 decoration-2 hover:underline" href="https://BraveNew.Capital">Brave New Capital</a> venture</p>
         </div>
     </footer>
 </main>
