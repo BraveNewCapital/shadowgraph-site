@@ -65,7 +65,7 @@
 
 
 
-<section class="flex h-full min-h-[600px] w-full text-white m-auto bg-[#00000000]">
+<section class="flex min-h-[600px] max-h-[100vh] w-full text-white m-0 bg-[#00000000]">
     <div class="h-full w-full m-auto flex min-h-[600px]">
         <div class="absolute left-0 min-h-[600px] h-full w-full overflow-hidden pointer-events-all">
             <Circle />
