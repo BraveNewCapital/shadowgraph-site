@@ -11,7 +11,7 @@
     });
 </script>
 
-<main class="flex flex-col h-full max-w-[1280px] m-auto px-6">
+<main class="flex flex-col full-height max-w-[1280px] m-auto px-6">
     {#if ready}
         <Navbar />
     {/if}
