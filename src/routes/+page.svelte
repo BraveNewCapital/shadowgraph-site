@@ -123,12 +123,13 @@
                             }
                             typingSpeed={177} 
                             pauseDuration={1618} 
-                            shuffle={false} 
-                          />
+                            shuffle={true} />
                             
-
                             <button class="border-2 rounded-xl ml-auto px-10 h-[35px] my-auto hover:bg-white hover:text-black focus:outline-none focus:shadow-outline"
-                             type="submit" title="Shadowgraph metasocial-network"  on:mouseover={changeTextOnHover} on:mouseout={revertText}>{buttonText}</button>
+                             type="submit" title="Shadowgraph metasocial-network" 
+                              on:mouseover={changeTextOnHover} on:mouseout={revertText}>
+                              {buttonText}
+                            </button>
                         </div>
                     </form>
                 </div>
