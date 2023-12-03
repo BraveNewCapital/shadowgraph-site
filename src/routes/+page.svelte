@@ -2,8 +2,20 @@
 	import { fade } from "svelte/transition";
 	import { onMount } from "svelte";
 	import Circle from "../lib/components/background/Circle.svelte";
+    import TypewriterInput from '../lib/components/Typewriter.svelte';
 
     let ready = false;
+    let buttonText = 'GET'; // Initial text for the button
+
+    // Function to revert text when not hovering
+    function revertText() {
+        buttonText = 'GET';
+    }
+    // Function to change text on hover
+    function changeTextOnHover() {
+        buttonText = 'NOW';
+    }
+
 
     onMount(() => {
         ready = true;
@@ -52,6 +64,7 @@
 </svelte:head>
 
 
+
 <section class="flex h-full min-h-[600px] w-full text-white m-auto bg-[#00000000]">
     <div class="h-full w-full m-auto flex min-h-[600px]">
         <div class="absolute left-0 min-h-[600px] h-full w-full overflow-hidden pointer-events-all">
@@ -62,8 +75,60 @@
                 <div class="flex flex-col my-auto" in:fade={{ delay: 200, duration: 800 }}>
                     <form class="max-w-md max-h-fit w-full mx-auto">
                         <div class="flex items-center border-b border-b-2 border-white py-2">
-                            <input class="appearance-none bg-transparent border-none w-full text-gray-300 mr-3 py-1 px-2 leading-tight focus:outline-none"  type="email" placeholder="Enter your email">
-                            <button class="border-2 rounded-lg ml-auto px-3 h-[40px] my-auto hover:bg-white hover:text-black focus:outline-none focus:shadow-outline" type="submit">Submit</button>
+                           
+                        
+
+
+                            <input id="typewriter-input" style="padding-left:0;" class="appearance-none bg-transparent border-none w-full text-gray-300 mr-3 py-1 px-2 leading-tight focus:outline-none"  type="email"/>
+                            <TypewriterInput 
+                            inputPlaceholderId="typewriter-input" 
+                            texts = {[
+                                'satoshi@visionmail.com', // Email Address as a Unique Identifier
+                                'BTC/ETH Address', // Bitcoin/Ethereum Addresses for Cryptocurrency Transactions and Identity
+                                'Medium Profile', // Medium Writing Profile for Content Creator Identity
+                                'MoonPay Passport',
+                                'Patreon Profile', // Patreon Content Creator Account for Digital Identity in Arts and Media
+                                'Twitch Channel', // Twitch Streaming Channel for Gamer and Streamer Identity
+                                'Mastodon Account', // Mastodon Account for Decentralized Social Networking Identity
+                                'Substrate Identity', // Substrate-Based Blockchain Identity
+                                'ENS Name', // Ethereum Name Service for Human-Readable Ethereum Addresses
+                                'uPort ID', // uPort Identifier for Self-Sovereign Identity on Ethereum
+                                'Keybase Username', // Keybase.io for Identity Verification across Platforms
+                                'Hyperledger Indy DID', // Hyperledger Indy Decentralized Identifier for Identity Solutions
+                                'nostr ID', // Nostr Protocol Identifier for Decentralized Social Networking
+                                'ERC-725 Identity Contract', // Ethereum ERC-725 Standard for Blockchain-Based Identity
+                                'TOR_@_Address.Onion', // TOR Network Address for Anonymous Identity Verification
+                                'Facebook Profile', //Facebook lol
+                                'Matrix ID', // Matrix Protocol Identifier for Secure, Decentralized Communication
+                                'DID Identifier', // Decentralized Identifier for Self-Sovereign Identity
+                                'OpenPGP Key', // OpenPGP Key for Secure Communications and Identity Verification
+                                'Signal Number', // Signal App Number for Secure Messaging and Identity Verification
+                                'Telegram @Handle', // Telegram Username for Secure Communication and Identity
+                                'Discord ID', // Discord ID for Identity in Gaming and Tech Communities
+                                'GitHub Account', // GitHub Username for Identity in Software Development
+                                'Soulbound DID Token', // Ethereum Soulbound Token for Non-Transferable Digital Identity
+                                'LinkedIn Profile', // LinkedIn URL for Professional Identity
+                                'Monero Address LOL', // Monero Address for Privacy-Focused Digital Identity
+                                'Polkadot Address', // Polkadot Address for Interoperable Blockchain Identity
+                                'GPG Fingerprint', // GPG Key Fingerprint for Secure Communication and Identity Verification
+                                'BEGIN PGP Public Key...', // Public Key for PGP Encryption and Identity Verification
+                                'EOS Account', // EOS Account for Decentralized Autonomous Organizations Identity
+                                'Tezos Address', // Tezos Address for Decentralized Identity in Smart Contracts
+                                'Civic ID', // Civic Identity for Secure and Private Digital Identity Verification
+                                'Ontology ID', // Ontology Blockchain Identifier for Decentralized Identity
+                                'SelfKey ID', // SelfKey Identifier for Self-Sovereign Identity Management
+                                'Handshake Name', // Handshake Decentralized Naming Protocol Identifier
+                                'someone@ProtonMail.com', // ProtonMail Address for Secure Email-Based Identity
+                                'Google ID' ]
+                            }
+                            typingSpeed={177} 
+                            pauseDuration={1618} 
+                            shuffle={false} 
+                          />
+                            
+
+                            <button class="border-2 rounded-xl ml-auto px-10 h-[35px] my-auto hover:bg-white hover:text-black focus:outline-none focus:shadow-outline"
+                             type="submit" title="Shadowgraph metasocial-network"  on:mouseover={changeTextOnHover} on:mouseout={revertText}>{buttonText}</button>
                         </div>
                     </form>
                 </div>
