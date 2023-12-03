@@ -45,8 +45,8 @@
 
 <svelte:head>
     <meta name="description" content="Shadowgraph redefines online identity management through a personal, cryptographic, and private environment. By unifying your digital persona scattered across various online channels, Shadowgraph offers advanced data analytics and self-sovereign identity management via a dPKI-WoT and blockchain-agnostic framework. Embrace a future where you control and monetize your data through zero-knowledge proof technology and social diffusion ML modeling, ensuring privacy and accuracy in a hyper-personalized digital space.">
-    <meta property="og:title" content="Shadowgraph - Your Digital Persona Unified" />
-    <meta property="og:description" content="Shadowgraph is revolutionizing online interaction by offering a unified, cryptographic, and private platform for digital identity management. Our advanced approach empowers users with self-sovereign identity, leveraging dPKI-WoT and blockchain-agnostic systems to ensure unparalleled privacy and control. Join us in embracing a future where data is not just protected but harnessed for personal empowerment and monetization through cutting-edge zero-knowledge proof and ML social diffusion modeling.">
+    <meta property="og:title" content="Shadowgraph - Self-Sovereign Unified Digital Persona" />
+    <meta property="og:description" content="Shadowgraph is changing the way we think about interacting online. By offering a unified, cryptographic, private & market driven platform for digital identity, reputation, trust and metrics.     Our approach via self-sovereign identity, leveraging dPKI-WoT with DIDs and blockchain-agnostic dpki ledger systems to scalably ensure privacy and control. Embracing a user centric future, where data is not rendundantly or perversely used by centeralised entities. Data, all of it - harnessed for personal privacy, empowerment and monetization (via ZKML 🪄).">
     <meta property="og:image" content="https://shadowgraph.ai/img/Shadowgraph_logo.webp">
     <meta property="og:url" content="https://shadowgraph.ai/">
 </svelte:head>
