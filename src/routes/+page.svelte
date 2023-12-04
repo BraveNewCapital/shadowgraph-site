@@ -63,9 +63,7 @@
     <meta property="og:url" content="https://shadowgraph.ai/">
 </svelte:head>
 
-
-
-<section class="flex min-h-[600px] max-h-[100vh] w-full text-white m-0 bg-[#00000000]">
+<section class="flex h-full min-h-[600px] max-h-[100vh] w-full text-white m-0 bg-[#00000000]">
     <div class="h-full w-full m-auto flex min-h-[600px]">
         <div class="absolute left-0 min-h-[600px] h-full w-full overflow-hidden pointer-events-all">
             <Circle />
@@ -75,11 +73,7 @@
                 <div class="flex flex-col my-auto" in:fade={{ delay: 200, duration: 800 }}>
                     <form class="max-w-md max-h-fit w-full mx-auto">
                         <div class="flex items-center border-b border-b-2 border-white py-2">
-                           
-                        
-
-
-                            <input id="typewriter-input" style="padding-left:0;" class="appearance-none bg-transparent border-none w-full text-gray-300 mr-3 py-1 px-2 leading-tight focus:outline-none"  type="email"/>
+                            <input id="typewriter-input" class="appearance-none bg-transparent border-none w-full text-gray-300 mr-3 py-1 px-2 pl-0 leading-tight focus:outline-none"  type="email"/>
                             <TypewriterInput 
                             inputPlaceholderId="typewriter-input" 
                             texts = {[
@@ -125,10 +119,12 @@
                             pauseDuration={1618} 
                             shuffle={true} />
                             
+                            <!-- svelte-ignore a11y-mouse-events-have-key-events -->
                             <button class="border-2 rounded-xl ml-auto px-10 h-[35px] my-auto hover:bg-white hover:text-black focus:outline-none focus:shadow-outline"
-                             type="submit" title="Shadowgraph metasocial-network" 
-                              on:mouseover={changeTextOnHover} on:mouseout={revertText}>
-                              {buttonText}
+                                type="submit" title="Shadowgraph metasocial-network" 
+                                on:mouseover={changeTextOnHover} 
+                                on:mouseout={revertText}>
+                                {buttonText}
                             </button>
                         </div>
                     </form>

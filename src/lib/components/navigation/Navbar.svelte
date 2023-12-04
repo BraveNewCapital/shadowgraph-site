@@ -18,8 +18,8 @@
 
 <nav bind:this={navbar} class="fixed top-0 left-0 right-0 mx-auto z-[12] backdrop-blur text-white border-b-[1px] border-gray-700" in:fade={{ delay: 200, duration: 300 }}>
     <div class="flex text-md px-2 space-x-6 w-full max-w-[1280px] mx-auto">
-        <a class="flex flex-col font-bold text-lg my-auto" href="/">
-            <h2 class="tracking-widest p-2"><img class="left-15" src="../img/shadowgraph_logotype.svg" style="max-height:45px;"/>
+        <a class="flex flex-col font-bold text-lg my-auto py-2" href="/">
+            <img class="max-h-[56px] my-auto" src="../img/shadowgraph_logotype.svg" alt="Shadowgraph" />
         </a>
         <div class="flex justify-end my-auto w-full">
             <div class="hidden sm:block space-x-6 ml-8 h-[60px]">
@@ -36,7 +36,7 @@
         </div>
         <div class="flex">
             <button class="border-2 rounded-lg ml-auto px-3 h-[40px] hidden sm:block my-auto hover:bg-white w-[150px] hover:text-black">Try the App</button>
-            <div class="sm:hidden my-auto pr-2">
+            <div class="sm:hidden my-auto pr-2 pt-[3px]">
                 <Hamburger bind:open --color="white" --padding={"0px"} />
             </div>
         </div>
